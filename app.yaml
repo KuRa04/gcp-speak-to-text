@@ -1,0 +1,25 @@
+runtime: python
+env: flex
+
+entrypoint: gunicorn -b :$PORT main:app
+
+runtime_config:
+  python_version: 3.7
+
+# Google Cloud Storage へアクセスするための権限
+env_variables:
+  GOOGLE_APPLICATION_CREDENTIALS: /app/creds.json
+
+# Cloud SQL への接続情報
+beta_settings:
+  cloud_sql_instances: isentropic-snow-382317:asia-northeast1:speech-to-text-instance=tcp:3306
+
+# service: default
+
+service: my-speech-to-text-service
+
+# App Engine Flexible Environment でのメモリ使用量の設定
+resources:
+  cpu: 1
+  memory_gb: 0.5
+  disk_size_gb: 10
